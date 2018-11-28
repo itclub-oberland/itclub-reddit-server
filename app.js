@@ -2,6 +2,7 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+let cors = require('cors');
 const expressOasGenerator = require('express-oas-generator');
 
 let indexRouter = require('./routes/index');
@@ -21,6 +22,7 @@ expressOasGenerator.init(app,
     'itclub-reddit-api.swagger.json',
     60 * 1000);
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));

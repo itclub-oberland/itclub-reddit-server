@@ -6,7 +6,7 @@ let usersDb = new Datastore({filename: "storage/reddit_users.db", autoload: true
 /**
  * Gets all users
  * */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     usersDb.find({}, function (err, docs) {
         res.status(200).json(docs);
     });
@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 /**
  * Adds a User
  * */
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
     if (req.body.__type === "User") {
         let user = req.body;
         usersDb.find({username: user.username}, function (err, docs) {
@@ -24,7 +24,7 @@ router.post('/', function (req, res, next) {
                     res.status(201).json(newDoc);
                 })
             } else {
-                res.status(400).json({messsage: "User already exists."});
+                res.status(400).json({message: "User already exists."});
             }
         });
     } else {
@@ -35,7 +35,7 @@ router.post('/', function (req, res, next) {
 /**
  * Gets a User
  * */
-router.get('/:username', function (req, res, next) {
+router.get('/:username', function (req, res) {
     usersDb.findOne({username: req.params.username}, function (err, foundDoc) {
         if (err) {
             res.status(400).json({message: err});
@@ -52,7 +52,7 @@ router.get('/:username', function (req, res, next) {
 /**
  * Updates a User
  * */
-router.put('/:username', function (req, res, next) {
+router.put('/:username', function (req, res) {
     if (req.body.__type === "User") {
         usersDb.update({username: req.params.username}, req.body, {}, function (err, updatedDocNum) {
             if (err) {
@@ -61,22 +61,35 @@ router.put('/:username', function (req, res, next) {
                 res.status(200).json({message: `${updatedDocNum} docs updated.`});
             }
         })
+    }else{
+        res.status(400).json({message: "Data type not supported. Expected type 'User'."});
     }
 });
 
 /**
  * Removes a User
  * */
-router.delete('/:username', function (req, res, next) {
-    if (req.body.__type === "User") {
-        usersDb.remove({username: req.params.username}, {}, function (err, removedDocNum) {
-            if (err) {
-                res.status(400).json({message: err});
-            } else {
-                res.status(200).json({message: `${removedDocNum} docs removed.`});
-            }
-        })
-    }
+router.delete('/:username', function (req, res) {
+    usersDb.remove({username: req.params.username}, {}, function (err, removedDocNum) {
+        if (err) {
+            res.status(400).json({message: err});
+        } else {
+            res.status(200).json({message: `${removedDocNum} docs removed.`});
+        }
+    })
+});
+
+/**
+ * Deletes all users
+ * */
+router.delete("/",function(req,res){
+    usersDb.remove({}, { multi: true },function(err, docs){
+        if(err){
+            res.status(400).json({message:"Something went wrong clearing the users storage!"});
+        }else{
+            res.status(200).json({message:"Users storage cleared!"});
+        }
+    });
 });
 
 module.exports = router;

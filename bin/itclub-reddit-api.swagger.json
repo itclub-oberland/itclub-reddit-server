@@ -1,0 +1,359 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "delete": {
+        "summary": "/",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/activeUser": {
+      "put": {
+        "summary": "/activeUser",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "get": {
+        "summary": "/activeUser",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "404": {
+            "schema": {
+              "type": "integer",
+              "example": 0
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "/activeUser",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/activeTopic": {
+      "put": {
+        "summary": "/activeTopic",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "1 docs updated."
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "/activeTopic",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "ALL"
+                },
+                "__type": {
+                  "type": "string",
+                  "example": "Topic"
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "XWVh1jLLrBFwGFqD"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "/activeTopic",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "/users",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "/users",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "delete": {
+        "summary": "/users",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/users/{username}": {
+      "get": {
+        "summary": "/users/{username}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "/users/{username}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "summary": "/users/{username}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/topics": {
+      "get": {
+        "summary": "/topics",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "__type": {
+                    "type": "string"
+                  },
+                  "_id": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "/topics",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "delete": {
+        "summary": "/topics",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/topics/{topicname}": {
+      "get": {
+        "summary": "/topics/{topicname}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "topicname",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "/topics/{topicname}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "topicname",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "summary": "/topics/{topicname}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "topicname",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    },
+    "/posts": {
+      "get": {
+        "summary": "/posts",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "/posts",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      },
+      "delete": {
+        "summary": "/posts",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": []
+      }
+    },
+    "/posts/{postId}": {
+      "get": {
+        "summary": "/posts/{postId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "/posts/{postId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      "delete": {
+        "summary": "/posts/{postId}",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    }
+  },
+  "info": {
+    "description": "[Specification JSON](/api-spec)"
+  }
+}
