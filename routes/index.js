@@ -5,7 +5,7 @@ let mainDb = new Datastore({filename: "storage/reddit_main.db", autoload: true})
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.redirect("/api-docs");
 });
 
 module.exports = router;
