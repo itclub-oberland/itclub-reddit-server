@@ -3,17 +3,17 @@ let router = express.Router();
 let Datastore = require("nedb");
 let usersDb = new Datastore({filename: "storage/reddit_users.db", autoload: true});
 
-
-/* GET users listing. */
+/**
+ * Gets all users
+ * */
 router.get('/', function (req, res, next) {
-    usersDb.find(null, function (err, docs) {
-        console.log(docs);
+    usersDb.find({}, function (err, docs) {
         res.status(200).json(docs);
     });
 });
 
 /**
- * Add a new User if it doesn't exist
+ * Adds a User
  * */
 router.post('/', function (req, res, next) {
     if (req.body.__type === "User") {
@@ -29,6 +29,53 @@ router.post('/', function (req, res, next) {
         });
     } else {
         res.status(400).json({message: "Data type not supported. Expected type 'User'."});
+    }
+});
+
+/**
+ * Gets a User
+ * */
+router.get('/:username', function (req, res, next) {
+    usersDb.findOne({username: req.params.username}, function (err, foundDoc) {
+        if (err) {
+            res.status(400).json({message: err});
+        } else {
+            if (foundDoc) {
+                res.status(200).json(foundDoc);
+            } else {
+                res.status(404).json();
+            }
+        }
+    });
+});
+
+/**
+ * Updates a User
+ * */
+router.put('/:username', function (req, res, next) {
+    if (req.body.__type === "User") {
+        usersDb.update({username: req.params.username}, req.body, {}, function (err, updatedDocNum) {
+            if (err) {
+                res.status(400).json({message: err});
+            } else {
+                res.status(200).json({message: `${updatedDocNum} docs updated.`});
+            }
+        })
+    }
+});
+
+/**
+ * Removes a User
+ * */
+router.delete('/:username', function (req, res, next) {
+    if (req.body.__type === "User") {
+        usersDb.remove({username: req.params.username}, {}, function (err, removedDocNum) {
+            if (err) {
+                res.status(400).json({message: err});
+            } else {
+                res.status(200).json({message: `${removedDocNum} docs removed.`});
+            }
+        })
     }
 });
 
