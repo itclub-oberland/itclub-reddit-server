@@ -8,14 +8,20 @@ let postsDb = new Datastore({filename: "storage/reddit_posts.db", autoload: true
  * Query params: topicname, username
  * */
 router.get('/', function (req, res, next) {
-    let topicname = req.query.topicname;
-    let username = req.query.username;
-    postsDb.find({_topic: {name: topicname}, _owner: {username: username}},
-        function (err, topics) {
+    let search = {};
+    if (req.query.topicname) {
+        search.__topic = {name: req.query.topicname};
+    }
+    if (req.query.username) {
+        search.owner = {username: req.query.username};
+    }
+
+    postsDb.find(search,
+        function (err, posts) {
             if (err) {
                 res.status(400).json({message: "Error occured while trying to retrieve Posts"})
             } else {
-                res.status(200).json(topics);
+                res.status(200).json(posts);
             }
         });
 });
@@ -24,8 +30,8 @@ router.get('/', function (req, res, next) {
  * Adds a Post
  * */
 router.post('/', function (req, res, next) {
-    if (req.body.__type === "Post") {
-        let newPost = req.body;
+    let newPost = JSON.parse(req.body.data);
+    if (newPost.__type === "Post") {
         postsDb.find({_id: newPost.id}, function (err, posts) {
             if (posts.length === 0) {
                 postsDb.insert(newPost, function (err, createdPost) {
@@ -61,8 +67,9 @@ router.get('/:postId', function (req, res, next) {
  * Updates a Post
  * */
 router.put('/:postId', function (req, res, next) {
-    if (req.body.__type === "Post") {
-        postsDb.update({_id: req.params.postId}, req.body, {}, function (err, updatedPostsNum) {
+    let post = JSON.parse(req.body.data);
+    if (post.__type === "Post") {
+        postsDb.update({_id: req.params.postId}, post, {}, function (err, updatedPostsNum) {
             if (err) {
                 res.status(400).json({message: err});
             } else {
@@ -71,6 +78,33 @@ router.put('/:postId', function (req, res, next) {
         })
     } else {
         res.status(400).json({message: "Data type not supported. Expected type 'Post'."});
+    }
+});
+
+function isPostsArray(posts) {
+    return posts
+        .filter((post) => {
+            return post.hasOwnProperty("__type")
+                && post.__type === "Post"
+        }).length === posts.length;
+}
+
+/**
+ * Updates with an array of posts
+ * */
+router.put("/", function (req, res) {
+    let posts = JSON.parse(req.body.data);
+    if (isPostsArray(posts)) {
+        for (let post of posts) {
+            postsDb.update({_id: post._id}, post, {upsert: true}, function (err) {
+                if (err) {
+                    res.status(400).json({message: "Something went wrong wile updating posts."});
+                }
+            });
+        }
+        res.status(200).json({message: "All Posts updated successfully."});
+    } else {
+        res.status(400).json({message: "Malformed array. Expected array of type 'Post'."});
     }
 });
 

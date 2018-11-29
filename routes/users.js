@@ -16,8 +16,8 @@ router.get('/', function (req, res) {
  * Adds a User
  * */
 router.post('/', function (req, res) {
-    if (req.body.__type === "User") {
-        let user = req.body;
+    let user = JSON.parse(req.body.data);
+    if (user.__type === "User") {
         usersDb.find({username: user.username}, function (err, docs) {
             if (docs.length === 0) {
                 usersDb.insert(user, function (err, newDoc) {
@@ -53,15 +53,16 @@ router.get('/:username', function (req, res) {
  * Updates a User
  * */
 router.put('/:username', function (req, res) {
-    if (req.body.__type === "User") {
-        usersDb.update({username: req.params.username}, req.body, {}, function (err, updatedDocNum) {
+    let user = JSON.parse(req.body.data);
+    if (user.__type === "User") {
+        usersDb.update({username: req.params.username}, user, {}, function (err, updatedDocNum) {
             if (err) {
                 res.status(400).json({message: err});
             } else {
                 res.status(200).json({message: `${updatedDocNum} docs updated.`});
             }
         })
-    }else{
+    } else {
         res.status(400).json({message: "Data type not supported. Expected type 'User'."});
     }
 });
@@ -82,12 +83,12 @@ router.delete('/:username', function (req, res) {
 /**
  * Deletes all users
  * */
-router.delete("/",function(req,res){
-    usersDb.remove({}, { multi: true },function(err, docs){
-        if(err){
-            res.status(400).json({message:"Something went wrong clearing the users storage!"});
-        }else{
-            res.status(200).json({message:"Users storage cleared!"});
+router.delete("/", function (req, res) {
+    usersDb.remove({}, {multi: true}, function (err, docs) {
+        if (err) {
+            res.status(400).json({message: "Something went wrong clearing the users storage!"});
+        } else {
+            res.status(200).json({message: "Users storage cleared!"});
         }
     });
 });

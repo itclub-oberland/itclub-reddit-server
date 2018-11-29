@@ -14,18 +14,27 @@
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Storage cleared!"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/activeUser": {
       "put": {
-        "summary": "/activeUser",
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": []
-      },
-      "get": {
         "summary": "/activeUser",
         "consumes": [
           "application/json"
@@ -35,13 +44,65 @@
           "application/json"
         ],
         "responses": {
-          "404": {
+          "200": {
             "schema": {
-              "type": "integer",
-              "example": 0
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "1 docs updated."
+                }
+              }
             }
           }
         }
+      },
+      "get": {
+        "summary": "/activeUser",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "Zmotey"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "******"
+                },
+                "__type": {
+                  "type": "string",
+                  "example": "User"
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "oXSYWIeKEPzs2Gdq"
+                }
+              }
+            }
+          },
+          "304": {},
+          "404": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "No active User found!"
+                }
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
       },
       "delete": {
         "summary": "/activeUser",
@@ -81,9 +142,6 @@
           "application/json"
         ],
         "parameters": [],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "schema": {
@@ -99,12 +157,16 @@
                 },
                 "_id": {
                   "type": "string",
-                  "example": "XWVh1jLLrBFwGFqD"
+                  "example": "3yw5XTg63ORDDIbB"
                 }
               }
             }
-          }
-        }
+          },
+          "304": {}
+        },
+        "produces": [
+          "application/json"
+        ]
       },
       "delete": {
         "summary": "/activeTopic",
@@ -121,31 +183,92 @@
           "application/json"
         ],
         "parameters": [],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "schema": {
               "type": "array",
-              "items": {}
+              "items": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "__type": {
+                    "type": "string"
+                  },
+                  "_id": {
+                    "type": "string"
+                  }
+                }
+              }
             }
-          }
-        }
+          },
+          "304": {}
+        },
+        "produces": [
+          "application/json"
+        ]
       },
       "post": {
         "summary": "/users",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "Zmotey"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "******"
+                },
+                "__type": {
+                  "type": "string",
+                  "example": "User"
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "wMRDKg5ol8nc5b8j"
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "summary": "/users",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Users storage cleared!"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/users/{username}": {
@@ -196,44 +319,72 @@
           "application/json"
         ],
         "parameters": [],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "schema": {
               "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "__type": {
-                    "type": "string"
-                  },
-                  "_id": {
-                    "type": "string"
-                  }
-                }
-              }
+              "items": {}
             }
-          }
-        }
+          },
+          "304": {}
+        },
+        "produces": [
+          "application/json"
+        ]
       },
       "post": {
         "summary": "/topics",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "ALL"
+                },
+                "__type": {
+                  "type": "string",
+                  "example": "Topic"
+                },
+                "_id": {
+                  "type": "string",
+                  "example": "UUDbmCVvM7mGj2HS"
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "summary": "/topics",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Topics storage cleared!"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/topics/{topicname}": {
@@ -284,31 +435,148 @@
           "application/json"
         ],
         "parameters": [],
-        "produces": [
-          "application/json"
-        ],
         "responses": {
           "200": {
             "schema": {
               "type": "array",
               "items": {}
             }
-          }
-        }
+          },
+          "304": {}
+        },
+        "produces": [
+          "application/json"
+        ]
       },
       "post": {
         "summary": "/posts",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "number",
+                  "example": 1543524751086
+                },
+                "topic": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "ALL"
+                    },
+                    "__type": {
+                      "type": "string",
+                      "example": "Topic"
+                    }
+                  }
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string",
+                      "example": "Zmotey"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "******"
+                    },
+                    "__type": {
+                      "type": "string",
+                      "example": "User"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Header 5"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://picsum.photos/800/400?image=5"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Kevin leberkas sed doner, esse magna kielbasa.  Landjaeger sed elit, deserunt chuck non leberkas esse dolore dolor pork belly short ribs spare ribs laboris.  Leberkas hamburger andouille, shankle anim aliquip burgdoggen tenderloin tempor.  Elit reprehenderit turkey anim, irure boudin tail commodo excepteur bacon ribeye.  Labore irure in do, in adipisicing sunt consequat andouille pork loin magna pork chop hamburger."
+                },
+                "comments": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                },
+                "upVotes": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                },
+                "downVotes": {
+                  "type": "array",
+                  "items": {},
+                  "example": []
+                },
+                "__type": {
+                  "type": "string",
+                  "example": "Post"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "/posts",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "All Posts updated successfully."
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "summary": "/posts",
         "consumes": [
           "application/json"
         ],
-        "parameters": []
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Posts storage cleared!"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/posts/{postId}": {

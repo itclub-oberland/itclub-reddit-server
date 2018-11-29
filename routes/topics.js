@@ -17,8 +17,8 @@ router.get('/', function (req, res, next) {
  * Adds a Topic
  * */
 router.post('/', function (req, res, next) {
-    if (req.body.__type === "Topic") {
-        let topic = req.body;
+    let topic = JSON.parse(req.body.data);
+    if (topic.__type === "Topic") {
         topicsDb.find({name: topic.name}, function (err, docs) {
             if (docs.length === 0) {
                 topicsDb.insert(topic, function (err, newTopic) {
@@ -54,8 +54,9 @@ router.get('/:topicname', function (req, res, next) {
  * Updates a Topic
  * */
 router.put('/:topicname', function (req, res, next) {
-    if (req.body.__type === "Topic") {
-        topicsDb.update({name: req.params.topicname}, req.body, {}, function (err, updatedTopicsNum) {
+    let topic = JSON.parse(req.body.data);
+    if (topic.__type === "Topic") {
+        topicsDb.update({name: req.params.topicname}, topic, {}, function (err, updatedTopicsNum) {
             if (err) {
                 res.status(400).json({message: err});
             } else {

@@ -5,13 +5,13 @@ let mainDb = new Datastore({filename: "storage/reddit_main.db", autoload: true})
 
 /* GET home page. */
 router.get('/', function (req, res) {
-    console.log("Hacim",req.url);
     res.redirect("/api-docs");
 });
 
 router.put('/activeUser', function (req, res) {
-    if (req.body.__type === "User") {
-        mainDb.update({__type: "User"}, req.body, {upsert: true}, function (err, updatedDocNum) {
+    let activeUser = JSON.parse(req.body.data);
+    if (activeUser.__type === "User") {
+        mainDb.update({__type: "User"}, activeUser, {upsert: true}, function (err, updatedDocNum) {
             if (err) {
                 res.status(400).json({message: err});
             } else {
@@ -31,7 +31,7 @@ router.get('/activeUser', function (req, res) {
             if (foundDoc) {
                 res.status(200).json(foundDoc);
             } else {
-                res.status(404).json();
+                res.status(404).json({message:"No active User found!"});
             }
         }
     });
@@ -48,8 +48,9 @@ router.delete('/activeUser', function (req, res) {
 });
 
 router.put('/activeTopic', function (req, res) {
-    if (req.body.__type === "Topic") {
-        mainDb.update({__type: "Topic"}, req.body, {upsert: true}, function (err, updatedDocNum) {
+    let activeTopic = JSON.parse(req.body.data);
+    if (activeTopic.__type === "Topic") {
+        mainDb.update({__type: "Topic"}, activeTopic, {upsert: true}, function (err, updatedDocNum) {
             if (err) {
                 res.status(400).json({message: err});
             } else {
