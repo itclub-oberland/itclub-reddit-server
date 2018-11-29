@@ -63,6 +63,9 @@
           "application/json"
         ],
         "parameters": [],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
@@ -82,7 +85,7 @@
                 },
                 "_id": {
                   "type": "string",
-                  "example": "oXSYWIeKEPzs2Gdq"
+                  "example": "u6m3w9gphcpYTOXp"
                 }
               }
             }
@@ -99,10 +102,7 @@
               }
             }
           }
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       },
       "delete": {
         "summary": "/activeUser",
@@ -142,6 +142,9 @@
           "application/json"
         ],
         "parameters": [],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
@@ -157,16 +160,13 @@
                 },
                 "_id": {
                   "type": "string",
-                  "example": "3yw5XTg63ORDDIbB"
+                  "example": "SRlE9cV7lHXs0ylK"
                 }
               }
             }
           },
           "304": {}
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       },
       "delete": {
         "summary": "/activeTopic",
@@ -183,6 +183,9 @@
           "application/json"
         ],
         "parameters": [],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
@@ -207,10 +210,7 @@
             }
           },
           "304": {}
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       },
       "post": {
         "summary": "/users",
@@ -240,7 +240,7 @@
                 },
                 "_id": {
                   "type": "string",
-                  "example": "wMRDKg5ol8nc5b8j"
+                  "example": "3jIkQZgRUYXXvJ9X"
                 }
               }
             }
@@ -319,18 +319,36 @@
           "application/json"
         ],
         "parameters": [],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
               "type": "array",
-              "items": {}
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "__type": {
+                    "type": "string"
+                  },
+                  "_id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "__type",
+                  "_id"
+                ]
+              }
             }
           },
           "304": {}
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       },
       "post": {
         "summary": "/topics",
@@ -356,7 +374,7 @@
                 },
                 "_id": {
                   "type": "string",
-                  "example": "UUDbmCVvM7mGj2HS"
+                  "example": "yOreQTBG0Znwzq3s"
                 }
               }
             }
@@ -435,18 +453,74 @@
           "application/json"
         ],
         "parameters": [],
+        "produces": [
+          "application/json"
+        ],
         "responses": {
           "200": {
             "schema": {
               "type": "array",
-              "items": {}
+              "items": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "number"
+                  },
+                  "topic": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "__type": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "owner": {
+                    "type": "object",
+                    "properties": {
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      },
+                      "__type": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "image": {
+                    "type": "string"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "comments": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "upVotes": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "downVotes": {
+                    "type": "array",
+                    "items": {}
+                  },
+                  "__type": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           },
           "304": {}
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       },
       "post": {
         "summary": "/posts",
@@ -464,7 +538,7 @@
               "properties": {
                 "_id": {
                   "type": "number",
-                  "example": 1543524751086
+                  "example": 1543532982357
                 },
                 "topic": {
                   "type": "object",
@@ -484,7 +558,7 @@
                   "properties": {
                     "username": {
                       "type": "string",
-                      "example": "Zmotey"
+                      "example": "Hacim"
                     },
                     "password": {
                       "type": "string",
@@ -498,15 +572,15 @@
                 },
                 "title": {
                   "type": "string",
-                  "example": "Header 5"
+                  "example": "Header 0"
                 },
                 "image": {
                   "type": "string",
-                  "example": "https://picsum.photos/800/400?image=5"
+                  "example": "https://picsum.photos/800/400?image=0"
                 },
                 "message": {
                   "type": "string",
-                  "example": "Kevin leberkas sed doner, esse magna kielbasa.  Landjaeger sed elit, deserunt chuck non leberkas esse dolore dolor pork belly short ribs spare ribs laboris.  Leberkas hamburger andouille, shankle anim aliquip burgdoggen tenderloin tempor.  Elit reprehenderit turkey anim, irure boudin tail commodo excepteur bacon ribeye.  Labore irure in do, in adipisicing sunt consequat andouille pork loin magna pork chop hamburger."
+                  "example": "Deserunt aliquip voluptate, corned beef chicken tongue proident laborum ullamco pastrami tri-tip.  Bresaola ham hock consectetur cillum jowl leberkas biltong spare ribs fugiat sunt dolore.  Chuck capicola strip steak, corned beef elit pork chop aute in.  Pork loin aute culpa est dolore anim hamburger pork chop.  Esse commodo doner consequat, kevin consectetur bacon flank id et minim.  Occaecat leberkas non, landjaeger boudin ham hock eiusmod culpa short loin reprehenderit duis."
                 },
                 "comments": {
                   "type": "array",
