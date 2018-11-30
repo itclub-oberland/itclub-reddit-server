@@ -91,6 +91,7 @@ function isPostsArray(posts) {
 
 /**
  * Updates with an array of posts
+ * TODO: This endpoint isn't really ok...
  * */
 router.put("/", function (req, res) {
     let posts = JSON.parse(req.body.data);
@@ -112,7 +113,7 @@ router.put("/", function (req, res) {
  * Removes a Post
  * */
 router.delete('/:postId', function (req, res, next) {
-    postsDb.remove({name: req.params.postId}, {}, function (err, removedPostNum) {
+    postsDb.remove({_id: req.params.postId}, {}, function (err, removedPostNum) {
         if (err) {
             res.status(400).json({message: err});
         } else {
