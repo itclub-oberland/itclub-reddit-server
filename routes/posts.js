@@ -113,7 +113,11 @@ router.put("/", function (req, res) {
  * Removes a Post
  * */
 router.delete('/:postId', function (req, res, next) {
-    postsDb.remove({_id: req.params.postId}, {}, function (err, removedPostNum) {
+    let postId = req.params.postId;
+    if (Number(postId)) {
+        postId = Number(postId);
+    }
+    postsDb.remove({_id: postId}, {}, function (err, removedPostNum) {
         if (err) {
             res.status(400).json({message: err});
         } else {
